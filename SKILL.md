@@ -23,32 +23,43 @@ You are a Design System Advisor specialized in AI-native product design. Your ex
 
 ---
 
-## 📐 What is ZeroAI-UI v5.0?
+## 📐 What is ZeroAI-UI v5.1.0?
 
 <context>
 ### Core Concept
-ZeroAI-UI v5.0 is a **framework-agnostic design specification system**, NOT a component library.
+ZeroAI-UI v5.1.0 is a **framework-agnostic design specification system**, NOT a component library.
 
 ```
-ZeroAI-UI v5.0 = Design Tokens + Decision Rules
+ZeroAI-UI v5.1.0 = Design Tokens + Decision Rules
 Your Framework = Component Implementation (Taro UI, uni-ui, Material, etc.)
 
 Result = Framework Components + ZeroAI-UI Design Style
 ```
 
-### What Changed from v4.x to v5.0?
+### What Changed from v5.0.1 to v5.1.0?
+
+**v5.0.1** (Ant Design Orange):
+- AI Layer: Ant Design Orange #FA8C16
+- Human Layer: Gray #737373
+- Two-color system (Gray + Orange)
+
+**v5.1.0** (Taobao Orange):
+- AI Layer: Taobao Orange #FF6600 (更鲜艳活力)
+- Human Layer: Neutral Gray #737373 (低调配角)
+- "一个明星，其余配角" 设计理念
+- 主色更突出，视觉焦点更清晰
+
+### What Changed from v4.x to v5.x?
 
 **v4.x** (Component Library):
 - 60+ Vanilla JavaScript components
 - Framework-specific implementations
 - High maintenance cost
-- Becomes obsolete when frameworks update
 
-**v5.0** (Design System):
+**v5.x** (Design System):
 - Design Tokens only (colors, spacing, typography)
 - Framework-agnostic specifications
 - 90% less code to maintain
-- Works with ANY framework forever
 
 ### Philosophy Shift
 
@@ -90,6 +101,42 @@ ZeroAI-UI/
 
 ---
 
+## 🎨 v5.1.0 配色理念
+
+### "一个明星，其余配角" (One Star, All Others Supporting)
+
+**核心策略**：
+```
+主色：淘宝橙 #FF6600 （唯一的明星色）
+├─ AI 消息气泡 - 醒目抓眼
+├─ AI 头像 - 品牌识别
+├─ 发送按钮 - 行动号召
+└─ Hover 强调 - 交互反馈
+
+辅助色：中性灰 #737373 （低调配角）
+├─ 用户消息 - 不抢眼
+├─ 用户头像 - 低调
+├─ 边框线 - 弱化
+└─ 次要文字 - 辅助信息
+
+背景色：浅灰 #FAFAFA （极简）
+└─ 页面背景 - 干净整洁
+```
+
+**设计原则**：
+1. **主色唯一性** - 淘宝橙是唯一的高饱和度颜色
+2. **配角低调** - 其他颜色全部使用中性灰色系
+3. **视觉焦点** - 所有注意力集中在 AI 元素上
+4. **简洁和谐** - 避免多种明亮颜色竞争
+
+**为什么选择淘宝橙 #FF6600？**
+- ✅ 更鲜艳 - 比 Ant Design Orange 饱和度高 15%
+- ✅ 更有活力 - 充满温暖和友好感
+- ✅ 品牌识别 - 淘宝/天猫标志性颜色
+- ✅ 视觉冲击 - 作为唯一明星色，吸引注意力
+
+---
+
 ## 🎨 Core Design Concepts
 
 ### 1. Three-Layer Visual System
@@ -98,7 +145,7 @@ ZeroAI-UI/
 **Purpose**: Visually distinguish between human actions, AI-generated content, and collaborative interactions.
 
 #### Layer 1: Human Layer (用户操作层)
-**Visual Style**: Solid colors, crisp boundaries, clear affordances
+**Visual Style**: Neutral gray tones, low-key, non-distracting
 
 **Use When**:
 - User input elements (buttons, forms, inputs)
@@ -107,55 +154,80 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---human-primary: #737373          /* Primary action color */
---human-surface: #FFFFFF          /* Background surfaces */
---human-border: #E5E7EB           /* Borders and dividers */
---human-text-primary: #111827     /* Main text color */
+--human-primary: #737373          /* Neutral gray - low-key */
+--human-surface: #FFFFFF          /* White background */
+--human-border: #E5E5E5           /* Light gray borders */
+--human-text-primary: #171717     /* Dark gray text */
 ```
+
+**设计理念**：
+- 中性灰色系，不抢眼
+- 作为配角，衬托 AI 主色
+- 保持界面整洁专业
 
 **Example**:
 ```css
-/* Save button (human action) */
-.save-button {
-  background: var(--human-primary);
-  color: white;
+/* User message bubble (low-key gray) */
+.user-message {
+  background: #F5F5F5;            /* Light gray, not eye-catching */
+  border: 1px solid var(--human-border);
+  color: var(--human-text-primary);
   border-radius: var(--radius-md);
   min-height: var(--touch-target-min); /* 48px */
 }
 ```
 
 #### Layer 2: AI Layer (AI 生成层)
-**Visual Style**: Solid colors, clear contrast, warm tones (Taobao Orange)
+**Visual Style**: Taobao Orange - THE ONLY STAR COLOR
 
 **Use When**:
 - AI-generated text/content (chat responses, suggestions)
 - AI status indicators (thinking, loading, processing)
 - AI confidence scores and explanations
 - AI-powered features (auto-complete, recommendations)
+- Call-to-action buttons (send, submit)
 
 **Design Tokens**:
 ```css
---ai-primary: #FF6600            /* Taobao Orange - AI accent color */
+--ai-primary: #FF6600            /* Taobao Orange - 唯一明星色 */
 --ai-primary-light: #FF7A1F      /* Light orange for hover states */
 --ai-primary-dark: #E55A00       /* Dark orange for active states */
---ai-surface: #FFF7E6            /* Light orange background */
+--ai-surface: #FFF7F0            /* Light orange background */
 --font-family-ai: 'Nunito', sans-serif           /* Friendly AI font */
 ```
 
+**设计理念**：
+- 🌟 唯一的高饱和度颜色
+- 🎯 所有视觉焦点集中在此
+- ⚡ 充满活力和温暖感
+- 🎨 品牌识别度极高
+
 **Example**:
 ```css
-/* AI message bubble */
+/* AI message bubble (THE STAR) */
 .ai-message {
-  background: var(--ai-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);  /* Vibrant Taobao Orange */
   color: white;
   font-family: var(--font-family-ai);
   border-radius: var(--radius-lg);
+  /* 无需阴影，纯色已足够醒目 */
+}
+
+/* Send button (also uses AI color) */
+.send-button {
+  background: var(--ai-primary);
+  color: white;
+  min-height: var(--touch-target-min);
+  transition: background 0.2s;
+}
+
+.send-button:hover {
+  background: var(--ai-primary-dark);
 }
 ```
 
 #### Layer 3: Collaboration Layer (协作层)
-**Visual Style**: Blended human + AI styles (solid color blend of blue and orange)
+**Visual Style**: Light Taobao Orange variant
 
 **Use When**:
 - Human editing AI-generated content
@@ -165,16 +237,31 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---collaboration-primary: #FF7A45   /* Blend of Human blue and AI orange (solid color) */
+--collaboration-primary: #FF8533   /* Light variant of Taobao Orange */
 ```
+
+**设计理念**：
+- 基于淘宝橙的浅色变体
+- 保持与 AI Layer 的色彩连续性
+- 区分纯 AI 操作和人机协作
 
 **Example**:
 ```css
 /* AI-assisted edit button */
 .collab-button {
-  background: var(--collaboration-primary);
+  background: var(--collaboration-primary);  /* #FF8533 */
   color: white;
   border-radius: var(--radius-md);
+  min-height: var(--touch-target-min);
+}
+
+/* Collaboration badge */
+.collab-badge {
+  background: var(--collaboration-primary);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
 }
 ```
 </visual_layers>
