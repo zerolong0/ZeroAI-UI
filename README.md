@@ -1,277 +1,351 @@
-# ZeroAI-UI
+# ZeroAI-UI v5.0
 
 <div align="center">
 
-![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v0.1.0-blue)
+![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v5.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![React](https://img.shields.io/badge/React-18+-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?logo=typescript)
+![Framework](https://img.shields.io/badge/Framework-Agnostic-purple)
 
-**The First AI-Native Design System for the AI Era**
+**Framework-Agnostic AI-Native Design System**
 
-*Built for AI products. Powered by AI. Designed for humans.*
+*Design Tokens + Specifications. Works with ANY framework.*
 
-[Documentation](./docs) · [Components](./components) · [Examples](./examples) · [Design Language](./docs/DESIGN_LANGUAGE.md)
+[Design Tokens](./tokens) · [Integration Guides](./guidelines) · [Documentation](./docs) · [SKILL.md](./SKILL.md)
 
 </div>
 
 ---
 
-## 🎯 What is ZeroAI-UI?
+## 🎯 What is ZeroAI-UI v5.0?
 
-**ZeroAI-UI** is the world's first design system specifically crafted for **AI-native products**. Unlike traditional UI libraries that focus on buttons and forms, ZeroAI-UI provides a complete design language for:
+**ZeroAI-UI v5.0** is a **lightweight, framework-agnostic design system** for AI-native products. It provides **Design Tokens** and **design specifications** that work with any frontend framework.
 
-- **Conversational interfaces** (like ChatGPT, Claude, Cursor)
-- **AI-assisted tools** (code editors, writing assistants, design tools)
-- **Human-AI collaboration** (where AI and human actions need visual distinction)
+```
+ZeroAI-UI v5.0 = Design Tokens + Decision Rules
+Your Framework = Component Implementation (Taro, uni-app, React, Vue, Flutter)
 
-### Why Not Just Use shadcn/ui?
+Result = Framework Components + ZeroAI-UI Design Style
+```
 
-| Feature | shadcn/ui | **ZeroAI-UI** |
-|---------|-----------|---------------|
-| **Philosophy** | GUI-first (traditional) | **AI-first (conversational)** |
-| **Visual Language** | Single flat design | **3-layer visual system** (Human/AI/Collaboration) |
-| **Components** | 60+ GUI components | **60+ GUI + 10+ AI-native components** |
-| **AI Features** | ❌ None | ✅ Streaming, Thinking indicators, Confidence scores |
-| **Uncertainty Handling** | ❌ Not addressed | ✅ Built-in (AI is probabilistic) |
-| **Best For** | Traditional web apps | **AI products & tools** |
+### What Changed from v4.x?
+
+| v4.x (Component Library) | **v5.0 (Design System)** |
+|--------------------------|--------------------------|
+| 60+ Vanilla JS components | ✅ Design Tokens only |
+| Framework-specific | ✅ Framework-agnostic |
+| High maintenance cost | ✅ 90% less code |
+| Becomes obsolete | ✅ Works forever |
+
+**Core Philosophy Shift**:
+- ❌ Old: "Here's a pre-built Button component" → Doesn't work with Taro/uni-app
+- ✅ New: "Here's how buttons should look (tokens + rules)" → Apply to ANY framework
 
 ---
 
 ## ✨ Key Features
 
-### 🎨 **AI-First Visual Language**
+### 🎨 Three-Layer Visual System
 
-```
-Traditional UI:  One visual style for everything
-ZeroAI-UI:       Three distinct visual layers
-```
+Visually distinguish between human actions, AI content, and collaboration:
 
-- **Human Layer** 👤 Solid colors, crisp boundaries (for user actions)
-- **AI Layer** 🤖 Gradient flows, soft glows (for AI-generated content)
-- **Collaboration Layer** 🤝 Blended styles (for human-AI co-creation)
+```css
+/* Human Layer: User actions (solid colors) */
+.save-button {
+  background: var(--human-primary);  /* #2563EB */
+}
 
-### 🧩 **AI-Native Components**
+/* AI Layer: AI-generated content (gradients + glow) */
+.ai-message {
+  background: var(--ai-gradient-primary);
+  box-shadow: var(--shadow-ai);
+}
 
-```tsx
-// Not just buttons and inputs...
-import {
-  AIChatInput,           // Smart input with intent recognition
-  AIStreamingResponse,   // Streaming text with typing effect
-  AIThinkingIndicator,   // Visual "AI is thinking" animation
-  ConfidenceScore,       // Display AI confidence levels
-  AIContextPanel,        // Show what AI "sees"
-  IntentSuggestions      // AI-powered quick actions
-} from '@zeroai-ui/react'
+/* Collaboration Layer: Human-AI co-creation (blended) */
+.collab-button {
+  background: var(--collaboration-gradient);
+}
 ```
 
-### 🎭 **Built-in Uncertainty**
+### 📦 Design Tokens in 3 Formats
 
-AI is probabilistic. Your UI should reflect that:
-
-```tsx
-<AIResponse
-  confidence={0.85}      // Show confidence visually
-  showThinking={true}    // Visualize AI reasoning process
-  allowRegenerate={true} // Let users ask AI to try again
-/>
+```
+tokens/
+├── design-tokens.json      # JSON format (for build tools)
+├── css-variables.css       # CSS Custom Properties (any web framework)
+└── tailwind.config.js      # Tailwind configuration (Taro/uni-app)
 ```
 
-### 🚀 **Framework Agnostic**
+### 🚀 Framework Integration Guides
 
-```bash
-# React (ready now)
-npm install @zeroai-ui/react
+```
+guidelines/
+├── taro-integration.md     # Taro 4.0 (React + TypeScript)
+└── uniapp-integration.md   # uni-app (Vue3 + TypeScript)
+```
 
-# Vue (coming soon)
-npm install @zeroai-ui/vue
+**Supported Frameworks**:
+- ✅ Taro 4.0 (React + TypeScript)
+- ✅ uni-app (Vue3 + TypeScript)
+- ✅ React / Next.js
+- ✅ Vue / Nuxt
+- ✅ Flutter (JSON tokens → Dart theme)
+- ✅ Any web framework (CSS Variables)
 
-# Svelte (coming soon)
-npm install @zeroai-ui/svelte
+### 📱 Mobile-First Responsive
+
+```css
+/* Automatic responsive scaling */
+--spacing-md: 12px;  /* Mobile (0-767px) */
+--spacing-md: 16px;  /* Desktop (768px+) */
+
+--font-size-base: 14px;  /* Mobile */
+--font-size-base: 16px;  /* Desktop */
+
+/* Touch targets ≥ 48px (iOS HIG/Material Design) */
+--touch-target-min: 48px;
 ```
 
 ---
 
 ## 🎬 Quick Start
 
-### Installation
+### Step 1: Choose Your Framework
 
+Pick your framework and follow the integration guide:
+
+<table>
+<tr>
+<td width="50%">
+
+**Taro 4.0 (React)**
 ```bash
-# Create a new project
-npx create-zeroai-app my-ai-app
+# Create Taro project
+taro init myProject
 
-# Or add to existing project
-npm install @zeroai-ui/react
+# Copy CSS Variables
+cp tokens/css-variables.css src/styles/
+
+# Import in app.tsx
+import './styles/css-variables.css'
 ```
 
-### Your First AI Interface (3 lines of code!)
+📖 [Complete Taro Guide](./guidelines/taro-integration.md)
 
+</td>
+<td width="50%">
+
+**uni-app (Vue3)**
+```bash
+# Create uni-app project
+npx degit dcloudio/uni-preset-vue my-project
+
+# Copy CSS Variables
+cp tokens/css-variables.css src/static/styles/
+
+# Import in App.vue
+@import './static/styles/css-variables.css';
+```
+
+📖 [Complete uni-app Guide](./guidelines/uniapp-integration.md)
+
+</td>
+</tr>
+</table>
+
+### Step 2: Apply Design Tokens
+
+**Taro Example (React)**:
 ```tsx
-import { AIChatArea } from '@zeroai-ui/react'
+import { View, Button } from '@tarojs/components'
 
-function App() {
-  return <AIChatArea
-    apiKey="your-openai-key"
-    model="gpt-4"
-  />
+function ChatMessage({ text, isAI }) {
+  return (
+    <View style={{
+      background: isAI
+        ? 'var(--ai-gradient-primary)'    // AI message
+        : 'var(--human-primary)',          // User message
+      boxShadow: isAI ? 'var(--shadow-ai)' : 'none',
+      padding: 'var(--spacing-md)',
+      borderRadius: 'var(--radius-lg)',
+      minHeight: 'var(--touch-target-min)', // 48px touch target
+      color: 'white'
+    }}>
+      {text}
+    </View>
+  )
 }
 ```
 
-That's it! You now have a fully functional AI chat interface with:
-- ✅ Streaming responses
-- ✅ Thinking indicators
-- ✅ Copy/regenerate buttons
-- ✅ Markdown rendering
-- ✅ Code syntax highlighting
-- ✅ Accessibility (WCAG 2.1 AAA)
-- ✅ Dark mode support
+**uni-app Example (Vue3)**:
+```vue
+<template>
+  <view :class="isAI ? 'ai-message' : 'user-message'">
+    {{ text }}
+  </view>
+</template>
 
----
+<style scoped>
+.user-message {
+  background: var(--human-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  min-height: var(--touch-target-min);
+}
 
-## 🎨 Design Philosophy
-
-### The 7 Principles
-
-1. **AI-First Interaction** 🤖
-   - Conversation is the primary interface
-   - GUI is the shortcut
-
-2. **Context-Aware Fluidity** 🌊
-   - Interface adapts to context
-   - Not static layouts
-
-3. **Transparent Intelligence** 🔍
-   - Show what AI is doing
-   - Make reasoning visible
-
-4. **Graceful Uncertainty** 🎲
-   - AI will make mistakes
-   - Design for error recovery
-
-5. **Progressive Disclosure** 📚
-   - Simple for beginners
-   - Powerful for experts
-
-6. **Human Agency** 🎯
-   - AI assists, humans decide
-   - Always allow override
-
-7. **Flat & Functional** ✨
-   - Flat design for human layers
-   - Strategic gradients for AI layers
-
----
-
-## 📚 Core Components
-
-### AI-Native Components
-
-| Component | Description | Status |
-|-----------|-------------|--------|
-| **AIChatInput** | Smart input with intent recognition | ✅ Ready |
-| **AIStreamingResponse** | Stream text with typing effect | ✅ Ready |
-| **AIThinkingIndicator** | Visual thinking animation | ✅ Ready |
-| **ConfidenceScore** | Display AI confidence | 🚧 Beta |
-| **AIContextPanel** | Show AI context | 🚧 Beta |
-| **IntentSuggestions** | AI-powered suggestions | 📅 Planned |
-| **MultimodalInput** | Text + Voice + Image input | 📅 Planned |
-
-### Traditional Components (shadcn/ui compatible)
-
-All shadcn/ui components work seamlessly:
-- Button, Input, Dialog, etc.
-- Just add `layer="ai"` for AI styling!
-
-```tsx
-// Human layer (solid blue)
-<Button layer="human">Save</Button>
-
-// AI layer (gradient purple)
-<Button layer="ai">Generate</Button>
-
-// Collaboration layer (blended)
-<Button layer="collaboration">Co-create</Button>
+.ai-message {
+  background: var(--ai-gradient-primary);
+  box-shadow: var(--shadow-ai);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  font-family: var(--font-family-ai);
+}
+</style>
 ```
 
 ---
 
-## 🎯 Who Should Use ZeroAI-UI?
+## 📚 Complete Documentation
+
+### Design Specifications
+- **[AI_FRIENDLY_DESIGN_TOKENS.md](./docs/AI_FRIENDLY_DESIGN_TOKENS.md)** - Complete token reference + decision trees
+- **[MOBILE_INTERACTION_GUIDE.md](./docs/MOBILE_INTERACTION_GUIDE.md)** - Touch targets, gestures, mobile components
+- **[RESPONSIVE_SYSTEM.md](./docs/RESPONSIVE_SYSTEM.md)** - 6 breakpoints, Mobile-First strategy
+- **[BUSINESS_COMPONENTS.md](./docs/BUSINESS_COMPONENTS.md)** - Data tables, forms, charts specifications
+- **[DESIGN_LANGUAGE.md](./docs/DESIGN_LANGUAGE.md)** - Overall design philosophy
+
+### Framework Integration
+- **[taro-integration.md](./guidelines/taro-integration.md)** - Taro 4.0 complete guide
+- **[uniapp-integration.md](./guidelines/uniapp-integration.md)** - uni-app complete guide
+
+### For AI/Claude Code
+- **[SKILL.md](./SKILL.md)** - Complete guide for Claude Code to use this design system
+
+---
+
+## 🎨 Design Token Categories
+
+### Colors (Three-Layer System)
+
+**Human Layer** (User actions):
+```css
+--human-primary: #2563EB          /* Primary action color */
+--human-surface: #FFFFFF          /* Background */
+--human-border: #E5E7EB           /* Borders */
+--human-text-primary: #111827     /* Text */
+```
+
+**AI Layer** (AI-generated content):
+```css
+--ai-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+--ai-primary: #8B5CF6
+--shadow-ai: 0 0 12px rgba(102, 126, 234, 0.5)
+--font-family-ai: 'Nunito', sans-serif
+```
+
+**Collaboration Layer** (Human-AI co-creation):
+```css
+--collaboration-gradient: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
+```
+
+### Spacing (Mobile-Responsive)
+```css
+--spacing-xs: 4px   (Mobile: 3px)
+--spacing-sm: 8px   (Mobile: 6px)
+--spacing-md: 16px  (Mobile: 12px)
+--spacing-lg: 24px  (Mobile: 18px)
+```
+
+### Typography
+```css
+--font-family-base: -apple-system, BlinkMacSystemFont, sans-serif
+--font-family-ai: 'Nunito', sans-serif  /* For AI content */
+--font-size-base: 16px (Desktop) / 14px (Mobile)
+```
+
+### Mobile Touch Targets
+```css
+--touch-target-min: 48px         /* Minimum (iOS HIG/Material) */
+--touch-target-comfortable: 56px
+--touch-target-spacious: 64px
+```
+
+📖 [Complete Token Reference](./docs/AI_FRIENDLY_DESIGN_TOKENS.md)
+
+---
+
+## 🎯 Who Should Use ZeroAI-UI v5.0?
 
 ### ✅ Perfect For:
 
+- **Cross-platform developers** using Taro/uni-app/Flutter
 - **AI product builders** (ChatGPT-like interfaces)
-- **AI tool developers** (code assistants, writing tools)
-- **Startups** building AI-first products
-- **Enterprises** adopting AI workflows
-- **Designers** who want AI-specific components
+- **Design system maintainers** who want framework independence
+- **Teams using multiple frameworks** (need consistent design)
+- **Projects that need Mobile + Web + Mini-programs**
 
 ### ⚠️ Maybe Not For:
 
-- Traditional CRUD apps (use shadcn/ui)
-- Marketing websites (use Tailwind)
-- Mobile-only apps (use React Native)
+- Pure marketing websites (use Tailwind directly)
+- Projects with existing mature design systems
+- Single-framework projects with custom UI library
 
 ---
 
-## 🛣️ Roadmap
+## 🚀 Migration from v4.x
 
-### v0.1.0 (Current) 🎯
-- [x] Design system documentation
-- [x] Core visual language
-- [x] 5 AI components (HTML)
+If you're using ZeroAI-UI v4.x:
 
-### v0.2.0 (Next Week) 🚀
-- [ ] React component library
-- [ ] Interactive documentation
-- [ ] CodeSandbox examples
+### What to Keep
+- ✅ All design specifications (docs/)
+- ✅ Design token values (colors, spacing, etc.)
+- ✅ Three-layer visual system concept
 
-### v0.3.0 (Week 3) 💎
-- [ ] CLI tool (`npx zeroai-ui`)
-- [ ] Component generator
-- [ ] Figma plugin
+### What to Remove
+- ❌ All component implementations (components/)
+- ❌ Demo HTML files (demo-*.html)
+- ❌ Framework-specific code
 
-### v1.0.0 (Month 2) 🏆
-- [ ] Vue & Svelte support
-- [ ] AI-powered theming
-- [ ] Component marketplace
-- [ ] VS Code extension
+### What to Use Instead
+- ✅ Your framework's native components (Taro UI, uni-ui, Material, etc.)
+- ✅ Apply ZeroAI-UI design tokens to those components
+- ✅ Follow integration guides for your framework
 
 ---
 
-## 🌟 Showcase
+## 📦 Project Structure
 
-> Built with ZeroAI-UI? [Submit your project!](./CONTRIBUTING.md)
-
-*(Coming soon: Screenshots of projects built with ZeroAI-UI)*
+```
+ZeroAI-UI/
+│
+├── tokens/                         # Design Tokens (3 formats)
+│   ├── design-tokens.json          # JSON (build tools)
+│   ├── css-variables.css           # CSS Variables (any web framework)
+│   └── tailwind.config.js          # Tailwind config (Taro/uni-app)
+│
+├── guidelines/                     # Framework Integration Guides
+│   ├── taro-integration.md         # Taro 4.0 guide
+│   └── uniapp-integration.md       # uni-app guide
+│
+├── docs/                           # Design Specifications
+│   ├── AI_FRIENDLY_DESIGN_TOKENS.md
+│   ├── MOBILE_INTERACTION_GUIDE.md
+│   ├── RESPONSIVE_SYSTEM.md
+│   ├── BUSINESS_COMPONENTS.md
+│   └── DESIGN_LANGUAGE.md
+│
+├── SKILL.md                        # Guide for Claude Code
+└── README.md                       # This file
+```
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Whether you're:
-- 🎨 A designer with AI product experience
-- 💻 A developer who's built AI tools
-- 📝 A writer who can improve our docs
-- 🐛 A tester who finds bugs
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
----
-
-## 📖 Documentation
-
-- [Design Language](./docs/DESIGN_LANGUAGE.md) - Full design philosophy
-- [Component API](./docs/COMPONENTS.md) - Component reference
-- [Theming Guide](./docs/THEMING.md) - Customize your theme
-- [Migration Guide](./docs/MIGRATION.md) - From shadcn/ui to ZeroAI-UI
-
----
-
-## 💬 Community
-
-- **Discord**: [Join our server](https://discord.gg/zeroai-ui)
-- **Twitter**: [@ZeroAI_UI](https://twitter.com/zeroai_ui)
-- **GitHub Discussions**: [Ask questions](https://github.com/zerolong/ZeroAI-UI/discussions)
+We welcome contributions! Especially:
+- 🎨 Framework integration guides (Flutter, React Native, etc.)
+- 💻 Example projects using ZeroAI-UI
+- 📝 Documentation improvements
+- 🌍 Translations (Chinese, Japanese, Korean)
 
 ---
 
@@ -283,11 +357,10 @@ MIT License - see [LICENSE](./LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-Inspired by:
-- **shadcn/ui** - For showing the power of copy-paste components
-- **Radix UI** - For accessible component primitives
-- **Tailwind CSS** - For utility-first CSS
+- **Tailwind CSS** - For utility-first CSS inspiration
+- **shadcn/ui** - For copy-paste component philosophy
 - **Anthropic Claude** - For AI interaction patterns
+- **Taro / uni-app** - For cross-platform frameworks
 
 Built with ❤️ for the AI era by [@zerolong](https://github.com/zerolong)
 
@@ -297,6 +370,6 @@ Built with ❤️ for the AI era by [@zerolong](https://github.com/zerolong)
 
 **⭐ Star us on GitHub if you find this useful!**
 
-*Let's build the future of AI interfaces together.*
+*Design once. Use everywhere.*
 
 </div>
