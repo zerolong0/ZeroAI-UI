@@ -1,10 +1,10 @@
-# ZeroAI-UI Design System v5.0
+# ZeroAI-UI Design System v5.0.1
 
 > **Framework-Agnostic AI-Native Design System**
 >
 > A lightweight design specification system that provides Design Tokens and decision rules for building AI-native products across any framework (Taro, uni-app, Flutter, React, Vue, vanilla web).
 
-**Version**: 5.0.0
+**Version**: 5.0.1
 **Last Updated**: 2025-01-31
 **Type**: Design System (Not a Component Library)
 
@@ -125,7 +125,7 @@ ZeroAI-UI/
 ```
 
 #### Layer 2: AI Layer (AI 生成层)
-**Visual Style**: Gradients, soft glows, flowing animations
+**Visual Style**: Solid colors, clear contrast, warm tones (Ant Design Orange)
 
 **Use When**:
 - AI-generated text/content (chat responses, suggestions)
@@ -135,9 +135,10 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---ai-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
---ai-primary: #8B5CF6            /* AI accent color */
---shadow-ai: 0 0 12px rgba(102, 126, 234, 0.5)  /* AI glow effect */
+--ai-primary: #FA8C16            /* Ant Design Orange - AI accent color */
+--ai-primary-light: #FFA940      /* Light orange for hover states */
+--ai-primary-dark: #D46B08       /* Dark orange for active states */
+--ai-surface: #FFF7E6            /* Light orange background */
 --font-family-ai: 'Nunito', sans-serif           /* Friendly AI font */
 ```
 
@@ -145,7 +146,7 @@ ZeroAI-UI/
 ```css
 /* AI message bubble */
 .ai-message {
-  background: var(--ai-gradient-primary);
+  background: var(--ai-primary);
   box-shadow: var(--shadow-ai);
   color: white;
   font-family: var(--font-family-ai);
@@ -154,7 +155,7 @@ ZeroAI-UI/
 ```
 
 #### Layer 3: Collaboration Layer (协作层)
-**Visual Style**: Blended human + AI styles
+**Visual Style**: Blended human + AI styles (solid color blend of blue and orange)
 
 **Use When**:
 - Human editing AI-generated content
@@ -164,14 +165,14 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---collaboration-gradient: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
+--collaboration-primary: #FF7A45   /* Blend of Human blue and AI orange (solid color) */
 ```
 
 **Example**:
 ```css
 /* AI-assisted edit button */
 .collab-button {
-  background: var(--collaboration-gradient);
+  background: var(--collaboration-primary);
   color: white;
   border-radius: var(--radius-md);
 }
@@ -314,7 +315,7 @@ Is this element user-controlled or AI-generated?
 
 // AI message (AI Layer)
 <View style={{
-  background: 'var(--ai-gradient-primary)',
+  background: 'var(--ai-primary)',
   boxShadow: 'var(--shadow-ai)',
   borderRadius: 'var(--radius-lg)',
   padding: 'var(--spacing-md)',
@@ -383,7 +384,7 @@ Is this element user-controlled or AI-generated?
 **Code Output**:
 ```css
 .ai-edit-button {
-  background: var(--collaboration-gradient);
+  background: var(--collaboration-primary);
   color: white;
   min-width: var(--touch-target-min);
   min-height: var(--touch-target-min);
@@ -404,7 +405,7 @@ Is this element user-controlled or AI-generated?
 ```css
 /* ❌ Wrong: Using AI gradient for user button */
 .save-button {
-  background: var(--ai-gradient-primary);  /* This is for AI, not user actions */
+  background: var(--ai-primary);  /* This is for AI, not user actions */
 }
 
 /* ✅ Correct: Use Human Layer for user actions */
@@ -487,12 +488,12 @@ What type of element is this?
 │  └─ Border? → var(--human-border)
 │
 ├─ AI-Generated Content
-│  ├─ Background/container? → var(--ai-gradient-primary)
+│  ├─ Background/container? → var(--ai-primary)
 │  ├─ Accent color? → var(--ai-primary)
 │  └─ Glow effect? → var(--shadow-ai)
 │
 ├─ Collaborative Feature
-│  └─ → var(--collaboration-gradient)
+│  └─ → var(--collaboration-primary)
 │
 └─ Semantic States
    ├─ Success? → var(--color-success)
@@ -601,14 +602,14 @@ When a user asks you to build a UI component:
 - `--human-text-tertiary`: #9CA3AF (Disabled/placeholder)
 
 #### AI Layer
-- `--ai-gradient-primary`: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
-- `--ai-gradient-light`: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%)
-- `--ai-gradient-dark`: linear-gradient(135deg, #5B21B6 0%, #6B21A8 100%)
-- `--ai-primary`: #8B5CF6 (Solid AI color)
+- `--ai-primary`: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+- `--ai-primary-light`: linear-gradient(135deg, #FFA940 0%, #C4B5FD 100%)
+- `--ai-primary-dark`: linear-gradient(135deg, #5B21B6 0%, #6B21A8 100%)
+- `--ai-primary`: #FA8C16 (Solid AI color)
 - `--ai-glow`: rgba(102, 126, 234, 0.5) (Glow color)
 
 #### Collaboration Layer
-- `--collaboration-gradient`: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
+- `--collaboration-primary`: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
 
 #### Semantic
 - `--color-success`: #10B981 (Green)

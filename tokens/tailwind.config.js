@@ -27,13 +27,13 @@ module.exports = {
           'text-secondary': '#6B7280',
           'text-tertiary': '#9CA3AF',
         },
-        // AI Layer
+        // AI Layer - Ant Design Orange (No Gradients)
         ai: {
-          primary: '#8B5CF6',
-          'primary-light': '#A78BFA',
-          'primary-dark': '#7C3AED',
-          glow: 'rgba(102, 126, 234, 0.5)',
-          'glow-strong': 'rgba(102, 126, 234, 0.8)',
+          primary: '#FA8C16',
+          'primary-light': '#FFA940',
+          'primary-dark': '#D46B08',
+          surface: '#FFF7E6',
+          'surface-elevated': '#FFE7BA',
         },
         // Semantic Colors
         semantic: {
@@ -140,13 +140,9 @@ module.exports = {
         'exit': 'cubic-bezier(0.4, 0, 1, 1)',
       },
 
-      // ==================== Background Image (Gradients) ====================
-      backgroundImage: {
-        'ai-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'ai-gradient-light': 'linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%)',
-        'ai-gradient-dark': 'linear-gradient(135deg, #5B21B6 0%, #6B21A8 100%)',
-        'collaboration-gradient': 'linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)',
-      },
+      // ==================== Note: No Gradients ====================
+      // ZeroAI-UI v5.0.1+ uses solid colors only
+      // Removed all gradient definitions per design system principles
     },
   },
 

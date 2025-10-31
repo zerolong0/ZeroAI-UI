@@ -134,7 +134,7 @@ export function createApp() {
 
 ```vue
 <template>
-  <!-- AI 消息气泡（渐变 + 光晕） -->
+  <!-- AI 消息气泡（Ant Design Orange 纯色） -->
   <view class="ai-bubble">
     <text>{{ message }}</text>
   </view>
@@ -148,8 +148,7 @@ defineProps<{
 
 <style scoped>
 .ai-bubble {
-  background: var(--ai-gradient-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
   color: white;
@@ -160,7 +159,7 @@ defineProps<{
 ```vue
 <!-- 使用 Tailwind -->
 <template>
-  <div class="bg-ai-gradient shadow-ai px-md py-md rounded-lg text-white">
+  <div class="bg-ai-primary px-md py-md rounded-lg text-white">
     {{ message }}
   </div>
 </template>
@@ -170,15 +169,15 @@ defineProps<{
 
 ```vue
 <template>
-  <!-- 混合风格按钮 -->
+  <!-- 混合风格按钮（纯色，无 emoji） -->
   <button class="collab-button">
-    <text>💡 AI 辅助编辑</text>
+    <text>AI 辅助编辑</text>
   </button>
 </template>
 
 <style scoped>
 .collab-button {
-  background: var(--collaboration-gradient);
+  background: var(--collaboration-primary);
   color: white;
   min-height: var(--touch-target-min);
   padding: var(--spacing-md);
@@ -503,8 +502,8 @@ const sendMessage = () => {
 }
 
 .bubble-ai {
-  background: var(--ai-gradient-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .input-area {
@@ -523,7 +522,7 @@ const sendMessage = () => {
 }
 
 .send-button {
-  background: var(--ai-gradient-primary);
+  background: var(--ai-primary);
   color: white;
   min-width: var(--touch-target-min);
   min-height: var(--touch-target-min);
@@ -718,10 +717,10 @@ const goToProduct = (id: number) => {
 ### 常用 CSS Variables
 
 ```css
-/* 颜色 */
-var(--human-primary)         /* #2563EB 人类操作主色 */
-var(--ai-gradient-primary)   /* AI 渐变主色 */
-var(--collaboration-gradient) /* 协作渐变 */
+/* 颜色 - 纯色系统（无渐变）*/
+var(--human-primary)         /* #2563EB 人类操作主色（蓝色）*/
+var(--ai-primary)            /* #FA8C16 AI 主色（Ant Design Orange）*/
+var(--collaboration-primary) /* #FF7A45 协作主色（蓝橙混合）*/
 
 /* 间距 */
 var(--spacing-xs)   /* 4px (Mobile: 3px) */
@@ -742,7 +741,7 @@ var(--radius-lg)   /* 12px */
 
 /* 阴影 */
 var(--shadow-sm)   /* 标准阴影 */
-var(--shadow-ai)   /* AI 光晕 */
+var(--shadow-md)   /* 中等阴影 */
 
 /* iOS 安全区域 */
 env(safe-area-inset-top)
@@ -769,9 +768,11 @@ env(safe-area-inset-bottom)
 ### 2. 遵循三层视觉系统
 
 ```
-用户输入/操作 → human-* 系列（纯色、实线）
-AI 生成内容 → ai-* 系列（渐变、光晕）
-人机协作 → collaboration-* 系列（混合）
+用户输入/操作 → human-* 系列（蓝色纯色）
+AI 生成内容 → ai-* 系列（橙色纯色 - Ant Design Orange）
+人机协作 → collaboration-* 系列（蓝橙混合纯色）
+
+注意：v5.0.1+ 全部使用纯色，禁止渐变和 emoji
 ```
 
 ### 3. Mobile-First 响应式
@@ -859,8 +860,8 @@ npm install @dcloudio/uni-ui
 
 <style scoped>
 .ai-card {
-  background: var(--ai-gradient-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .ai-text {

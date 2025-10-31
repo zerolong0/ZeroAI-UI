@@ -1,8 +1,8 @@
-# ZeroAI-UI v5.0
+# ZeroAI-UI v5.0.1
 
 <div align="center">
 
-![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v5.0.0-blue)
+![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v5.0.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Framework](https://img.shields.io/badge/Framework-Agnostic-purple)
 
@@ -16,12 +16,12 @@
 
 ---
 
-## 🎯 What is ZeroAI-UI v5.0?
+## 🎯 What is ZeroAI-UI v5.0.1?
 
-**ZeroAI-UI v5.0** is a **lightweight, framework-agnostic design system** for AI-native products. It provides **Design Tokens** and **design specifications** that work with any frontend framework.
+**ZeroAI-UI v5.0.1** is a **lightweight, framework-agnostic design system** for AI-native products. It provides **Design Tokens** and **design specifications** that work with any frontend framework.
 
 ```
-ZeroAI-UI v5.0 = Design Tokens + Decision Rules
+ZeroAI-UI v5.0.1 = Design Tokens + Decision Rules
 Your Framework = Component Implementation (Taro, uni-app, React, Vue, Flutter)
 
 Result = Framework Components + ZeroAI-UI Design Style
@@ -49,20 +49,20 @@ Result = Framework Components + ZeroAI-UI Design Style
 Visually distinguish between human actions, AI content, and collaboration:
 
 ```css
-/* Human Layer: User actions (solid colors) */
+/* Human Layer: User actions (solid blue) */
 .save-button {
   background: var(--human-primary);  /* #2563EB */
 }
 
-/* AI Layer: AI-generated content (gradients + glow) */
+/* AI Layer: AI-generated content (solid orange - Ant Design Orange) */
 .ai-message {
-  background: var(--ai-gradient-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);  /* #FA8C16 */
+  font-family: var(--font-family-ai);
 }
 
-/* Collaboration Layer: Human-AI co-creation (blended) */
+/* Collaboration Layer: Human-AI co-creation (solid blend of blue and orange) */
 .collab-button {
-  background: var(--collaboration-gradient);
+  background: var(--collaboration-primary);  /* #FF7A45 */
 }
 ```
 
@@ -162,9 +162,9 @@ function ChatMessage({ text, isAI }) {
   return (
     <View style={{
       background: isAI
-        ? 'var(--ai-gradient-primary)'    // AI message
-        : 'var(--human-primary)',          // User message
-      boxShadow: isAI ? 'var(--shadow-ai)' : 'none',
+        ? 'var(--ai-primary)'         // AI message (Ant Design Orange)
+        : 'var(--human-primary)',      // User message (Blue)
+      fontFamily: isAI ? 'var(--font-family-ai)' : 'inherit',
       padding: 'var(--spacing-md)',
       borderRadius: 'var(--radius-lg)',
       minHeight: 'var(--touch-target-min)', // 48px touch target
@@ -186,18 +186,19 @@ function ChatMessage({ text, isAI }) {
 
 <style scoped>
 .user-message {
-  background: var(--human-primary);
+  background: var(--human-primary);  /* Blue */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   min-height: var(--touch-target-min);
+  color: white;
 }
 
 .ai-message {
-  background: var(--ai-gradient-primary);
-  box-shadow: var(--shadow-ai);
+  background: var(--ai-primary);  /* Ant Design Orange */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   font-family: var(--font-family-ai);
+  color: white;
 }
 </style>
 ```
@@ -236,15 +237,16 @@ function ChatMessage({ text, isAI }) {
 
 **AI Layer** (AI-generated content):
 ```css
---ai-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
---ai-primary: #8B5CF6
---shadow-ai: 0 0 12px rgba(102, 126, 234, 0.5)
+--ai-primary: #FA8C16            /* Ant Design Orange */
+--ai-primary-light: #FFA940      /* Light orange */
+--ai-primary-dark: #D46B08       /* Dark orange */
+--ai-surface: #FFF7E6            /* Light orange background */
 --font-family-ai: 'Nunito', sans-serif
 ```
 
 **Collaboration Layer** (Human-AI co-creation):
 ```css
---collaboration-gradient: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
+--collaboration-primary: #FF7A45  /* Blend of Human blue and AI orange */
 ```
 
 ### Spacing (Mobile-Responsive)
@@ -273,7 +275,7 @@ function ChatMessage({ text, isAI }) {
 
 ---
 
-## 🎯 Who Should Use ZeroAI-UI v5.0?
+## 🎯 Who Should Use ZeroAI-UI v5.0.1?
 
 ### ✅ Perfect For:
 

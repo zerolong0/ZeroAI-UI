@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI 聊天界面 - ZeroAI-UI v5.0 Demo</title>
+  <style>
+    /* ==================== ZeroAI-UI v5.0 Design Tokens ==================== */
+
+    :root {
+      /* Human Layer Colors */
+      --human-primary: #2563EB;
+      --human-primary-light: #3B82F6;
+      --human-surface: #FFFFFF;
+      --human-surface-elevated: #F9FAFB;
+      --human-border: #E5E7EB;
+      --human-text-primary: #111827;
+      --human-text-secondary: #6B7280;
+
+      /* AI Layer Colors */
+      --ai-primary: #8B5CF6;
+      --ai-primary-light: #A78BFA;
+      --ai-glow: rgba(139, 92, 246, 0.3);
+
+      /* Spacing (Desktop) */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+
+      /* Typography */
+      --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+      --font-family-ai: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-size-base: 16px;
+      --font-size-sm: 14px;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+
+      /* Border Radius */
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-ai: 0 0 12px rgba(102, 126, 234, 0.5);
+
+      /* Touch Targets */
+      --touch-target-min: 48px;
+
+      /* Animation */
+      --duration-base: 300ms;
+      --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Mobile Responsive Overrides */
+    @media (max-width: 767px) {
+      :root {
+        --spacing-xs: 3px;
+        --spacing-sm: 6px;
+        --spacing-md: 12px;
+        --spacing-lg: 18px;
+        --spacing-xl: 24px;
+        --font-size-base: 14px;
+        --font-size-sm: 13px;
+      }
+    }
+
+    /* ==================== Base Styles ==================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+      color: var(--human-text-primary);
+      background: var(--human-surface-elevated);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==================== Chat Container ==================== */
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--human-surface);
+    }
+
+    /* ==================== Header ==================== */
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background: var(--human-surface);
+      border-bottom: 1px solid var(--human-border);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .ai-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: var(--ai-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Minimalist AI Icon - Geometric Design */
+    .ai-avatar::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border: 2px solid white;
+      border-radius: 3px;
+      position: absolute;
+    }
+
+    .ai-avatar::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .title-text h1 {
+      font-size: 18px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--human-text-primary);
+    }
+
+    .title-text p {
+      font-size: var(--font-size-sm);
+      color: var(--human-text-secondary);
+    }
+
+    .header-badge {
+      padding: 4px 12px;
+      background: var(--ai-primary);
+      color: white;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ==================== Messages Area ==================== */
+
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    /* Custom Scrollbar */
+    .messages-area::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .messages-area::-webkit-scrollbar-track {
+      background: var(--human-surface-elevated);
+    }
+
+    .messages-area::-webkit-scrollbar-thumb {
+      background: var(--human-border);
+      border-radius: var(--radius-full);
+    }
+
+    .messages-area::-webkit-scrollbar-thumb:hover {
+      background: var(--human-text-secondary);
+    }
+
+    /* ==================== Message Bubbles ==================== */
+
+    .message-wrapper {
+      display: flex;
+      gap: var(--spacing-sm);
+      animation: messageSlideIn var(--duration-base) var(--easing-standard);
+    }
+
+    @keyframes messageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-wrapper.user {
+      justify-content: flex-end;
+    }
+
+    .message-wrapper.ai {
+      justify-content: flex-start;
+    }
+
+    .message-bubble {
+      max-width: 70%;
+      padding: var(--spacing-md);
+      border-radius: var(--radius-lg);
+      word-wrap: break-word;
+      transition: all var(--duration-base) var(--easing-standard);
+    }
+
+    /* Human Layer: User Messages (Solid Blue) */
+    .message-bubble.user {
+      background: var(--human-primary);
+      color: white;
+      border-bottom-right-radius: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .message-bubble.user:hover {
+      background: var(--human-primary-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* AI Layer: AI Messages (Solid Color + Subtle Glow) */
+    .message-bubble.ai {
+      background: var(--ai-primary);
+      color: white;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.1), var(--shadow-sm);
+      font-family: var(--font-family-ai);
+    }
+
+    .message-bubble.ai:hover {
+      background: var(--ai-primary-light);
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.2), var(--shadow-md);
+    }
+
+    .message-time {
+      display: block;
+      font-size: 12px;
+      margin-top: var(--spacing-xs);
+      opacity: 0.8;
+    }
+
+    /* ==================== Thinking Indicator ==================== */
+
+    .thinking-indicator {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md);
+      max-width: 70%;
+      background: var(--ai-primary);
+      color: white;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.1), var(--shadow-sm);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .thinking-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* ==================== Input Area ==================== */
+
+    .input-area {
+      display: flex;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-lg);
+      background: var(--human-surface);
+      border-top: 1px solid var(--human-border);
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      bottom: 0;
+      padding-bottom: max(var(--spacing-lg), env(safe-area-inset-bottom));
+    }
+
+    .message-input {
+      flex: 1;
+      padding: var(--spacing-md);
+      border: 1px solid var(--human-border);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      font-family: var(--font-family-base);
+      color: var(--human-text-primary);
+      background: var(--human-surface);
+      min-height: var(--touch-target-min);
+      resize: none;
+      transition: all var(--duration-base) var(--easing-standard);
+    }
+
+    .message-input:focus {
+      outline: none;
+      border-color: var(--human-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .message-input::placeholder {
+      color: var(--human-text-secondary);
+    }
+
+    .send-button {
+      min-width: var(--touch-target-min);
+      min-height: var(--touch-target-min);
+      padding: 0 var(--spacing-lg);
+      background: var(--ai-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: all var(--duration-base) var(--easing-standard);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+    }
+
+    .send-button:hover {
+      background: var(--ai-primary-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .send-button:active {
+      transform: translateY(0);
+    }
+
+    .send-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ==================== Welcome Message ==================== */
+
+    .welcome-message {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: var(--human-text-secondary);
+    }
+
+    .welcome-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--spacing-lg);
+      border-radius: var(--radius-full);
+      background: var(--ai-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Minimalist Sparkle Icon - Geometric Design */
+    .welcome-icon::before {
+      content: '';
+      width: 32px;
+      height: 32px;
+      border: 3px solid white;
+      border-radius: 4px;
+      position: absolute;
+      transform: rotate(45deg);
+    }
+
+    .welcome-icon::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .welcome-message h2 {
+      font-size: 24px;
+      color: var(--human-text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .suggestion-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      justify-content: center;
+      margin-top: var(--spacing-lg);
+    }
+
+    .chip {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--human-surface-elevated);
+      border: 1px solid var(--human-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--human-text-secondary);
+      cursor: pointer;
+      transition: all var(--duration-base) var(--easing-standard);
+    }
+
+    .chip:hover {
+      background: var(--ai-primary);
+      color: white;
+      border-color: var(--ai-primary);
+      transform: translateY(-1px);
+    }
+
+    /* ==================== Responsive Design ==================== */
+
+    @media (max-width: 767px) {
+      .chat-header {
+        padding: var(--spacing-md);
+      }
+
+      .header-title {
+        gap: var(--spacing-sm);
+      }
+
+      .ai-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      .title-text h1 {
+        font-size: 16px;
+      }
+
+      .header-badge {
+        font-size: 11px;
+        padding: 3px 10px;
+      }
+
+      .messages-area {
+        padding: var(--spacing-md);
+      }
+
+      .message-bubble {
+        max-width: 85%;
+      }
+
+      .welcome-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+      }
+
+      .welcome-message h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-title">
+        <div class="ai-avatar"></div>
+        <div class="title-text">
+          <h1>ZeroAI 助手</h1>
+          <p>在线 · 随时为您服务</p>
+        </div>
+      </div>
+      <div class="header-badge">v5.0</div>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="messages-area" id="messagesArea">
+      <!-- Welcome Message -->
+      <div class="welcome-message">
+        <div class="welcome-icon"></div>
+        <h2>欢迎使用 ZeroAI 助手</h2>
+        <p>我可以帮您回答问题、提供建议、创作内容</p>
+
+        <div class="suggestion-chips">
+          <div class="chip">解释一个概念</div>
+          <div class="chip">帮我写文章</div>
+          <div class="chip">查找信息</div>
+          <div class="chip">写代码</div>
+        </div>
+      </div>
+
+      <!-- Sample User Message (Human Layer) -->
+      <div class="message-wrapper user">
+        <div class="message-bubble user">
+          你好！请帮我解释一下 ZeroAI-UI v5.0 的三层视觉系统是什么？
+          <span class="message-time">14:23</span>
+        </div>
+      </div>
+
+      <!-- Sample AI Message (AI Layer) -->
+      <div class="message-wrapper ai">
+        <div class="message-bubble ai">
+          你好！我很乐意为你解释 ZeroAI-UI v5.0 的三层视觉系统 ✨
+
+          这个系统包含三个层次：
+
+          1. <strong>Human Layer（用户层）</strong> - 使用纯色设计（如蓝色），用于所有用户操作和输入的元素，比如按钮、表单、导航等。
+
+          2. <strong>AI Layer（AI层）</strong> - 使用渐变和光晕效果（如紫色渐变），用于 AI 生成的内容，比如这条消息就是用 AI Layer 样式展示的。
+
+          3. <strong>Collaboration Layer（协作层）</strong> - 混合前两者的风格，用于人机协作的场景，比如 AI 辅助用户编辑内容。
+
+          这样的设计让用户一眼就能分辨哪些是自己的操作，哪些是 AI 的回应！
+          <span class="message-time">14:24</span>
+        </div>
+      </div>
+
+      <!-- Sample User Message -->
+      <div class="message-wrapper user">
+        <div class="message-bubble user">
+          太棒了！那这个设计系统支持哪些框架？
+          <span class="message-time">14:25</span>
+        </div>
+      </div>
+
+      <!-- AI Thinking Indicator -->
+      <div class="message-wrapper ai">
+        <div class="thinking-indicator">
+          <span>AI 正在思考</span>
+          <div class="thinking-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <textarea
+        class="message-input"
+        placeholder="输入消息...（支持回车发送）"
+        rows="1"
+      ></textarea>
+      <button class="send-button">
+        <span>发送</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Simple auto-scroll to bottom
+    const messagesArea = document.getElementById('messagesArea');
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+
+    // Auto-resize textarea
+    const textarea = document.querySelector('.message-input');
+    textarea.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Enter to send (Shift+Enter for new line)
+    textarea.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('.send-button').click();
+      }
+    });
+
+    // Chip click demo
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        textarea.value = this.textContent.trim().substring(2);
+        textarea.focus();
+      });
+    });
+  </script>
+</body>
+</html>

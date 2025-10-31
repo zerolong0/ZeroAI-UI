@@ -17,22 +17,19 @@
       "text-tertiary": "#9CA3AF"
     },
     "ai": {
-      "gradient-primary": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      "gradient-light": "linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%)",
-      "gradient-dark": "linear-gradient(135deg, #5B21B6 0%, #6B21A8 100%)",
-      "primary": "#8B5CF6",
-      "primary-light": "#A78BFA",
-      "primary-dark": "#7C3AED",
-      "surface": "rgba(255, 255, 255, 0.7)",
-      "surface-elevated": "rgba(255, 255, 255, 0.9)",
-      "border": "rgba(102, 126, 234, 0.3)",
-      "border-strong": "rgba(102, 126, 234, 0.5)",
-      "glow": "rgba(102, 126, 234, 0.5)",
-      "glow-strong": "rgba(102, 126, 234, 0.8)"
+      "primary": "#FA8C16",
+      "primary-light": "#FFA940",
+      "primary-dark": "#D46B08",
+      "surface": "#FFF7E6",
+      "surface-elevated": "#FFE7BA",
+      "border": "rgba(250, 140, 22, 0.3)",
+      "border-strong": "rgba(250, 140, 22, 0.5)",
+      "note": "Ant Design Orange - No gradients, solid colors only"
     },
     "collaboration": {
-      "gradient": "linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)",
-      "border": "linear-gradient(90deg, rgba(37, 99, 235, 0.5) 0%, rgba(102, 126, 234, 0.5) 100%)"
+      "primary": "#FF7A45",
+      "border": "rgba(255, 122, 69, 0.5)",
+      "note": "Blend of Human (Blue) and AI (Orange) - Solid color only"
     },
     "semantic": {
       "success": "#10B981",
