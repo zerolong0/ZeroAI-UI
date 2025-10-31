@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 聊天助手 - ZeroAI-UI v5.0.1</title>
+  <style>
+    /* ZeroAI-UI v5.0.1 Design Tokens */
+    :root {
+      /* Human Layer - Blue */
+      --human-primary: #2563EB;
+      --human-primary-light: #3B82F6;
+      --human-surface: #FFFFFF;
+      --human-border: #E5E7EB;
+      --human-text: #111827;
+      --human-text-secondary: #6B7280;
+
+      /* AI Layer - Ant Design Orange (NO GRADIENTS) */
+      --ai-primary: #FA8C16;
+      --ai-primary-light: #FFA940;
+      --ai-primary-dark: #D46B08;
+      --ai-surface: #FFF7E6;
+      --ai-border: rgba(250, 140, 22, 0.3);
+
+      /* Collaboration Layer */
+      --collaboration-primary: #FF7A45;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+
+      /* Typography */
+      --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-family-ai: 'Nunito', -apple-system, sans-serif;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      /* Touch Targets */
+      --touch-target-min: 48px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      background: #F9FAFB;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--human-surface);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Header */
+    .chat-header {
+      background: var(--human-surface);
+      border-bottom: 1px solid var(--human-border);
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      min-height: 64px;
+    }
+
+    .ai-avatar-header {
+      width: 40px;
+      height: 40px;
+      background: var(--ai-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Geometric AI Icon (NO EMOJI) */
+    .ai-avatar-header::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid white;
+      border-radius: 3px;
+      position: absolute;
+    }
+
+    .ai-avatar-header::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: var(--font-size-lg);
+      color: var(--human-text);
+      font-weight: 600;
+    }
+
+    .header-title p {
+      font-size: var(--font-size-sm);
+      color: var(--human-text-secondary);
+      margin-top: 2px;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Messages Area */
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    .message {
+      display: flex;
+      gap: var(--spacing-md);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.user {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .message.ai .message-avatar {
+      background: var(--ai-primary);
+    }
+
+    .message.user .message-avatar {
+      background: var(--human-primary);
+    }
+
+    /* AI Avatar Icon (Geometric, NO EMOJI) */
+    .message.ai .message-avatar::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border: 2px solid white;
+      border-radius: 3px;
+    }
+
+    .message.ai .message-avatar::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* User Avatar Icon (Geometric, NO EMOJI) */
+    .message.user .message-avatar::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .message.user .message-avatar::after {
+      content: '';
+      width: 20px;
+      height: 8px;
+      background: white;
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      bottom: 4px;
+    }
+
+    .message-content {
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .message-bubble {
+      padding: var(--spacing-md);
+      border-radius: var(--radius-lg);
+      line-height: 1.5;
+      font-size: var(--font-size-base);
+    }
+
+    .message.ai .message-bubble {
+      background: var(--ai-primary);
+      color: white;
+      font-family: var(--font-family-ai);
+      border-bottom-left-radius: var(--radius-sm);
+    }
+
+    .message.user .message-bubble {
+      background: var(--human-primary);
+      color: white;
+      border-bottom-right-radius: var(--radius-sm);
+    }
+
+    .message-time {
+      font-size: 12px;
+      color: var(--human-text-secondary);
+      padding: 0 var(--spacing-sm);
+    }
+
+    .message.user .message-time {
+      text-align: right;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: flex;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-md);
+      background: var(--ai-surface);
+      border-radius: var(--radius-lg);
+      width: fit-content;
+      border: 1px solid var(--ai-border);
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--ai-primary);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Input Area */
+    .input-area {
+      border-top: 1px solid var(--human-border);
+      padding: var(--spacing-md) var(--spacing-lg);
+      background: var(--human-surface);
+    }
+
+    .input-container {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: flex-end;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .quick-action {
+      padding: var(--spacing-xs) var(--spacing-md);
+      background: var(--human-surface);
+      border: 1px solid var(--human-border);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--human-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-action:hover {
+      background: var(--ai-surface);
+      border-color: var(--ai-primary);
+      color: var(--ai-primary);
+    }
+
+    .input-box {
+      display: flex;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm);
+      border: 2px solid var(--human-border);
+      border-radius: var(--radius-lg);
+      background: var(--human-surface);
+      transition: border-color 0.2s;
+    }
+
+    .input-box:focus-within {
+      border-color: var(--ai-primary);
+    }
+
+    .message-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: var(--font-size-base);
+      font-family: var(--font-family-base);
+      padding: var(--spacing-sm);
+      resize: none;
+      max-height: 120px;
+    }
+
+    .input-actions {
+      display: flex;
+      gap: var(--spacing-xs);
+      align-items: flex-end;
+    }
+
+    .icon-button {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .icon-button:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Geometric Icons (NO EMOJI) */
+    .icon-button.attach::before {
+      content: '';
+      width: 18px;
+      height: 22px;
+      border: 2px solid var(--human-text-secondary);
+      border-radius: 8px 8px 0 0;
+      border-bottom: none;
+    }
+
+    .icon-button.attach::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--human-text-secondary);
+      border-radius: 50%;
+      position: absolute;
+      top: 12px;
+    }
+
+    .send-button {
+      min-width: var(--touch-target-min);
+      height: var(--touch-target-min);
+      background: var(--ai-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .send-button:hover {
+      background: var(--ai-primary-dark);
+    }
+
+    .send-button:active {
+      transform: scale(0.98);
+    }
+
+    /* Send Icon (Geometric, NO EMOJI) */
+    .send-button::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 10px solid white;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-40%, -50%);
+    }
+
+    /* Suggestions */
+    .suggestions {
+      display: flex;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) 0;
+      flex-wrap: wrap;
+    }
+
+    .suggestion-card {
+      padding: var(--spacing-md);
+      background: var(--human-surface);
+      border: 1px solid var(--human-border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .suggestion-card:hover {
+      border-color: var(--ai-primary);
+      background: var(--ai-surface);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .suggestion-title {
+      font-weight: 600;
+      color: var(--human-text);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .suggestion-desc {
+      font-size: var(--font-size-sm);
+      color: var(--human-text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .chat-header {
+        padding: var(--spacing-sm) var(--spacing-md);
+      }
+
+      .messages-area {
+        padding: var(--spacing-md);
+      }
+
+      .message-content {
+        max-width: 85%;
+      }
+
+      .quick-actions {
+        display: none;
+      }
+
+      .suggestion-card {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="ai-avatar-header"></div>
+      <div class="header-title">
+        <h1>AI 助手</h1>
+        <p>基于 ZeroAI-UI v5.0.1 设计</p>
+      </div>
+      <div class="status-indicator"></div>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="messages-area" id="messagesArea">
+      <!-- Welcome Message -->
+      <div class="message ai">
+        <div class="message-avatar"></div>
+        <div class="message-content">
+          <div class="message-bubble">
+            你好！我是 AI 助手，很高兴为你服务。我可以帮你解答问题、提供建议或进行创作。有什么我可以帮助你的吗？
+          </div>
+          <div class="message-time">10:30</div>
+        </div>
+      </div>
+
+      <!-- Suggestions -->
+      <div class="suggestions">
+        <div class="suggestion-card" onclick="sendSuggestion('帮我写一段产品介绍')">
+          <div class="suggestion-title">创意写作</div>
+          <div class="suggestion-desc">帮我写一段产品介绍</div>
+        </div>
+        <div class="suggestion-card" onclick="sendSuggestion('解释一下设计系统的概念')">
+          <div class="suggestion-title">知识问答</div>
+          <div class="suggestion-desc">解释设计系统的概念</div>
+        </div>
+        <div class="suggestion-card" onclick="sendSuggestion('给我一些界面优化建议')">
+          <div class="suggestion-title">专业建议</div>
+          <div class="suggestion-desc">界面优化建议</div>
+        </div>
+      </div>
+
+      <!-- User Message Example -->
+      <div class="message user">
+        <div class="message-avatar"></div>
+        <div class="message-content">
+          <div class="message-bubble">
+            ZeroAI-UI v5.0.1 有什么新特性？
+          </div>
+          <div class="message-time">10:31</div>
+        </div>
+      </div>
+
+      <!-- AI Response Example -->
+      <div class="message ai">
+        <div class="message-avatar"></div>
+        <div class="message-content">
+          <div class="message-bubble">
+            ZeroAI-UI v5.0.1 带来了两大核心设计原则更新：<br><br>
+
+            1. <strong>禁止渐变</strong> - 所有颜色改为纯色设计，提升性能和可访问性<br>
+            2. <strong>禁止 Emoji</strong> - 使用几何图标，更专业、更一致<br><br>
+
+            同时，AI Layer 颜色升级为 Ant Design Orange (#FA8C16)，与 Human Layer 的蓝色形成完美冷暖对比！
+          </div>
+          <div class="message-time">10:31</div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator (hidden by default) -->
+      <div class="message ai" id="typingIndicator" style="display: none;">
+        <div class="message-avatar"></div>
+        <div class="message-content">
+          <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="input-container">
+        <div class="input-wrapper">
+          <div class="quick-actions">
+            <div class="quick-action" onclick="sendQuickAction('总结一下')">总结一下</div>
+            <div class="quick-action" onclick="sendQuickAction('详细解释')">详细解释</div>
+            <div class="quick-action" onclick="sendQuickAction('举个例子')">举个例子</div>
+          </div>
+          <div class="input-box">
+            <textarea
+              class="message-input"
+              id="messageInput"
+              placeholder="输入消息... (Enter 发送，Shift+Enter 换行)"
+              rows="1"
+            ></textarea>
+            <div class="input-actions">
+              <button class="icon-button attach" title="附件"></button>
+            </div>
+          </div>
+        </div>
+        <button class="send-button" onclick="sendMessage()" title="发送"></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const messagesArea = document.getElementById('messagesArea');
+    const messageInput = document.getElementById('messageInput');
+    const typingIndicator = document.getElementById('typingIndicator');
+
+    // Auto-resize textarea
+    messageInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Send message on Enter (Shift+Enter for new line)
+    messageInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const text = messageInput.value.trim();
+      if (!text) return;
+
+      // Add user message
+      addMessage('user', text);
+      messageInput.value = '';
+      messageInput.style.height = 'auto';
+
+      // Show typing indicator
+      typingIndicator.style.display = 'flex';
+      scrollToBottom();
+
+      // Simulate AI response
+      setTimeout(() => {
+        typingIndicator.style.display = 'none';
+        addMessage('ai', getAIResponse(text));
+      }, 1500);
+    }
+
+    function addMessage(type, text) {
+      const time = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.innerHTML = `
+        <div class="message-avatar"></div>
+        <div class="message-content">
+          <div class="message-bubble">${text}</div>
+          <div class="message-time">${time}</div>
+        </div>
+      `;
+
+      messagesArea.insertBefore(messageDiv, typingIndicator);
+      scrollToBottom();
+    }
+
+    function getAIResponse(userMessage) {
+      const responses = [
+        '这是一个很好的问题！基于 ZeroAI-UI v5.0.1 的设计原则，我建议使用纯色设计来提升界面的现代感和性能。',
+        '让我为你详细解释一下。在 v5.0.1 中，我们采用了 Ant Design Orange 作为 AI Layer 的主色，与蓝色的 Human Layer 形成了完美的冷暖对比。',
+        '根据你的需求，我建议遵循 Mobile-First 的响应式策略，确保在所有设备上都有良好的用户体验。',
+        '我理解你的想法。在设计 AI 产品时，视觉层次的区分非常重要，这也是为什么我们采用三层视觉系统的原因。'
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    function sendSuggestion(text) {
+      messageInput.value = text;
+      messageInput.focus();
+    }
+
+    function sendQuickAction(text) {
+      sendMessage();
+    }
+
+    function scrollToBottom() {
+      setTimeout(() => {
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      }, 100);
+    }
+
+    // Initial scroll
+    scrollToBottom();
+  </script>
+</body>
+</html>

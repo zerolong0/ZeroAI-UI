@@ -1,10 +1,10 @@
-# ZeroAI-UI Design System v5.0.1
+# ZeroAI-UI Design System v5.1.0
 
 > **Framework-Agnostic AI-Native Design System**
 >
 > A lightweight design specification system that provides Design Tokens and decision rules for building AI-native products across any framework (Taro, uni-app, Flutter, React, Vue, vanilla web).
 
-**Version**: 5.0.1
+**Version**: 5.1.0
 **Last Updated**: 2025-01-31
 **Type**: Design System (Not a Component Library)
 
@@ -107,7 +107,7 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---human-primary: #2563EB          /* Primary action color */
+--human-primary: #737373          /* Primary action color */
 --human-surface: #FFFFFF          /* Background surfaces */
 --human-border: #E5E7EB           /* Borders and dividers */
 --human-text-primary: #111827     /* Main text color */
@@ -125,7 +125,7 @@ ZeroAI-UI/
 ```
 
 #### Layer 2: AI Layer (AI 生成层)
-**Visual Style**: Solid colors, clear contrast, warm tones (Ant Design Orange)
+**Visual Style**: Solid colors, clear contrast, warm tones (Taobao Orange)
 
 **Use When**:
 - AI-generated text/content (chat responses, suggestions)
@@ -135,9 +135,9 @@ ZeroAI-UI/
 
 **Design Tokens**:
 ```css
---ai-primary: #FA8C16            /* Ant Design Orange - AI accent color */
---ai-primary-light: #FFA940      /* Light orange for hover states */
---ai-primary-dark: #D46B08       /* Dark orange for active states */
+--ai-primary: #FF6600            /* Taobao Orange - AI accent color */
+--ai-primary-light: #FF7A1F      /* Light orange for hover states */
+--ai-primary-dark: #E55A00       /* Dark orange for active states */
 --ai-surface: #FFF7E6            /* Light orange background */
 --font-family-ai: 'Nunito', sans-serif           /* Friendly AI font */
 ```
@@ -433,7 +433,7 @@ Is this element user-controlled or AI-generated?
 ```css
 /* ❌ Wrong: Hardcoded values */
 .component {
-  color: #2563EB;
+  color: #737373;
   padding: 16px;
   border-radius: 8px;
 }
@@ -589,7 +589,7 @@ When a user asks you to build a UI component:
 ### Colors
 
 #### Human Layer
-- `--human-primary`: #2563EB (Primary action color)
+- `--human-primary`: #737373 (Primary action color)
 - `--human-primary-light`: #3B82F6 (Hover state)
 - `--human-primary-dark`: #1D4ED8 (Active state)
 - `--human-surface`: #FFFFFF (Background)
@@ -603,19 +603,19 @@ When a user asks you to build a UI component:
 
 #### AI Layer
 - `--ai-primary`: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
-- `--ai-primary-light`: linear-gradient(135deg, #FFA940 0%, #C4B5FD 100%)
+- `--ai-primary-light`: linear-gradient(135deg, #FF7A1F 0%, #C4B5FD 100%)
 - `--ai-primary-dark`: linear-gradient(135deg, #5B21B6 0%, #6B21A8 100%)
-- `--ai-primary`: #FA8C16 (Solid AI color)
+- `--ai-primary`: #FF6600 (Solid AI color)
 - `--ai-glow`: rgba(102, 126, 234, 0.5) (Glow color)
 
 #### Collaboration Layer
-- `--collaboration-primary`: linear-gradient(90deg, #2563EB 0%, #667eea 50%, #764ba2 100%)
+- `--collaboration-primary`: linear-gradient(90deg, #737373 0%, #667eea 50%, #764ba2 100%)
 
 #### Semantic
 - `--color-success`: #10B981 (Green)
 - `--color-warning`: #F59E0B (Amber)
 - `--color-error`: #EF4444 (Red)
-- `--color-info`: #3B82F6 (Blue)
+- `--color-info`: #3B82F6 (Gray)
 
 ### Spacing
 

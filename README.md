@@ -1,8 +1,8 @@
-# ZeroAI-UI v5.0.1
+# ZeroAI-UI v5.1.0
 
 <div align="center">
 
-![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v5.0.1-blue)
+![ZeroAI-UI](https://img.shields.io/badge/ZeroAI--UI-v5.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Framework](https://img.shields.io/badge/Framework-Agnostic-purple)
 
@@ -16,12 +16,12 @@
 
 ---
 
-## 🎯 What is ZeroAI-UI v5.0.1?
+## 🎯 What is ZeroAI-UI v5.1.0?
 
-**ZeroAI-UI v5.0.1** is a **lightweight, framework-agnostic design system** for AI-native products. It provides **Design Tokens** and **design specifications** that work with any frontend framework.
+**ZeroAI-UI v5.1.0** is a **lightweight, framework-agnostic design system** for AI-native products. It provides **Design Tokens** and **design specifications** that work with any frontend framework.
 
 ```
-ZeroAI-UI v5.0.1 = Design Tokens + Decision Rules
+ZeroAI-UI v5.1.0 = Design Tokens + Decision Rules
 Your Framework = Component Implementation (Taro, uni-app, React, Vue, Flutter)
 
 Result = Framework Components + ZeroAI-UI Design Style
@@ -51,12 +51,12 @@ Visually distinguish between human actions, AI content, and collaboration:
 ```css
 /* Human Layer: User actions (solid blue) */
 .save-button {
-  background: var(--human-primary);  /* #2563EB */
+  background: var(--human-primary);  /* #737373 */
 }
 
-/* AI Layer: AI-generated content (solid orange - Ant Design Orange) */
+/* AI Layer: AI-generated content (solid orange - Taobao Orange) */
 .ai-message {
-  background: var(--ai-primary);  /* #FA8C16 */
+  background: var(--ai-primary);  /* #FF6600 */
   font-family: var(--font-family-ai);
 }
 
@@ -162,8 +162,8 @@ function ChatMessage({ text, isAI }) {
   return (
     <View style={{
       background: isAI
-        ? 'var(--ai-primary)'         // AI message (Ant Design Orange)
-        : 'var(--human-primary)',      // User message (Blue)
+        ? 'var(--ai-primary)'         // AI message (Taobao Orange)
+        : 'var(--human-primary)',      // User message (Gray)
       fontFamily: isAI ? 'var(--font-family-ai)' : 'inherit',
       padding: 'var(--spacing-md)',
       borderRadius: 'var(--radius-lg)',
@@ -186,7 +186,7 @@ function ChatMessage({ text, isAI }) {
 
 <style scoped>
 .user-message {
-  background: var(--human-primary);  /* Blue */
+  background: var(--human-primary);  /* Gray */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   min-height: var(--touch-target-min);
@@ -194,7 +194,7 @@ function ChatMessage({ text, isAI }) {
 }
 
 .ai-message {
-  background: var(--ai-primary);  /* Ant Design Orange */
+  background: var(--ai-primary);  /* Taobao Orange */
   border-radius: var(--radius-lg);
   padding: var(--spacing-md);
   font-family: var(--font-family-ai);
@@ -229,7 +229,7 @@ function ChatMessage({ text, isAI }) {
 
 **Human Layer** (User actions):
 ```css
---human-primary: #2563EB          /* Primary action color */
+--human-primary: #737373          /* Primary action color */
 --human-surface: #FFFFFF          /* Background */
 --human-border: #E5E7EB           /* Borders */
 --human-text-primary: #111827     /* Text */
@@ -237,9 +237,9 @@ function ChatMessage({ text, isAI }) {
 
 **AI Layer** (AI-generated content):
 ```css
---ai-primary: #FA8C16            /* Ant Design Orange */
---ai-primary-light: #FFA940      /* Light orange */
---ai-primary-dark: #D46B08       /* Dark orange */
+--ai-primary: #FF6600            /* Taobao Orange */
+--ai-primary-light: #FF7A1F      /* Light orange */
+--ai-primary-dark: #E55A00       /* Dark orange */
 --ai-surface: #FFF7E6            /* Light orange background */
 --font-family-ai: 'Nunito', sans-serif
 ```
@@ -275,7 +275,7 @@ function ChatMessage({ text, isAI }) {
 
 ---
 
-## 🎯 Who Should Use ZeroAI-UI v5.0.1?
+## 🎯 Who Should Use ZeroAI-UI v5.1.0?
 
 ### ✅ Perfect For:
 

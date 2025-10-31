@@ -1,6 +1,6 @@
 /**
- * ZeroAI-UI Tailwind CSS Configuration v5.0.0
- * Framework-agnostic design tokens for Tailwind CSS
+ * ZeroAI-UI Tailwind CSS Configuration v5.1.0
+ * Framework-agnostic design tokens for Tailwind CSS - Taobao Orange Theme
  *
  * Usage:
  * 1. Taro: Copy this to your Taro project's tailwind.config.js
@@ -13,34 +13,34 @@ module.exports = {
     extend: {
       // ==================== Colors ====================
       colors: {
-        // Human Layer
+        // Human Layer - Neutral Gray (Low-key)
         human: {
-          primary: '#2563EB',
-          'primary-light': '#3B82F6',
-          'primary-dark': '#1D4ED8',
+          primary: '#737373',
+          'primary-light': '#A3A3A3',
+          'primary-dark': '#525252',
           surface: '#FFFFFF',
-          'surface-elevated': '#F9FAFB',
-          'surface-sunken': '#F3F4F6',
-          border: '#E5E7EB',
-          'border-strong': '#D1D5DB',
-          'text-primary': '#111827',
-          'text-secondary': '#6B7280',
-          'text-tertiary': '#9CA3AF',
+          'surface-elevated': '#FAFAFA',
+          'surface-sunken': '#F5F5F5',
+          border: '#E5E5E5',
+          'border-strong': '#D4D4D4',
+          'text-primary': '#171717',
+          'text-secondary': '#737373',
+          'text-tertiary': '#A3A3A3',
         },
-        // AI Layer - Ant Design Orange (No Gradients)
+        // AI Layer - Taobao Orange (Vibrant, Energetic)
         ai: {
-          primary: '#FA8C16',
-          'primary-light': '#FFA940',
-          'primary-dark': '#D46B08',
-          surface: '#FFF7E6',
-          'surface-elevated': '#FFE7BA',
+          primary: '#FF6600',
+          'primary-light': '#FF7A1F',
+          'primary-dark': '#E55A00',
+          surface: '#FFF7F0',
+          'surface-elevated': '#FFEDE0',
         },
         // Semantic Colors
         semantic: {
           success: '#10B981',
           warning: '#F59E0B',
           error: '#EF4444',
-          info: '#3B82F6',
+          info: '#737373',
         },
       },
 

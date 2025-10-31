@@ -1,41 +1,42 @@
 {
   "name": "ZeroAI-UI Design Tokens",
-  "version": "5.0.0",
-  "description": "Framework-agnostic design tokens for AI-Native products",
+  "version": "5.1.0",
+  "description": "Framework-agnostic design tokens for AI-Native products - Taobao Orange Theme",
   "colors": {
     "human": {
-      "primary": "#2563EB",
-      "primary-light": "#3B82F6",
-      "primary-dark": "#1D4ED8",
+      "primary": "#737373",
+      "primary-light": "#A3A3A3",
+      "primary-dark": "#525252",
       "surface": "#FFFFFF",
-      "surface-elevated": "#F9FAFB",
-      "surface-sunken": "#F3F4F6",
-      "border": "#E5E7EB",
-      "border-strong": "#D1D5DB",
-      "text-primary": "#111827",
-      "text-secondary": "#6B7280",
-      "text-tertiary": "#9CA3AF"
+      "surface-elevated": "#FAFAFA",
+      "surface-sunken": "#F5F5F5",
+      "border": "#E5E5E5",
+      "border-strong": "#D4D4D4",
+      "text-primary": "#171717",
+      "text-secondary": "#737373",
+      "text-tertiary": "#A3A3A3",
+      "note": "Neutral gray colors - low-key, non-distracting"
     },
     "ai": {
-      "primary": "#FA8C16",
-      "primary-light": "#FFA940",
-      "primary-dark": "#D46B08",
-      "surface": "#FFF7E6",
-      "surface-elevated": "#FFE7BA",
-      "border": "rgba(250, 140, 22, 0.3)",
-      "border-strong": "rgba(250, 140, 22, 0.5)",
-      "note": "Ant Design Orange - No gradients, solid colors only"
+      "primary": "#FF6600",
+      "primary-light": "#FF7A1F",
+      "primary-dark": "#E55A00",
+      "surface": "#FFF7F0",
+      "surface-elevated": "#FFEDE0",
+      "border": "rgba(255, 102, 0, 0.2)",
+      "border-strong": "rgba(255, 102, 0, 0.4)",
+      "note": "Taobao Orange - vibrant, energetic, warm"
     },
     "collaboration": {
-      "primary": "#FF7A45",
-      "border": "rgba(255, 122, 69, 0.5)",
-      "note": "Blend of Human (Blue) and AI (Orange) - Solid color only"
+      "primary": "#FF8533",
+      "border": "rgba(255, 133, 51, 0.4)",
+      "note": "Light variant of Taobao Orange for collaborative actions"
     },
     "semantic": {
       "success": "#10B981",
       "warning": "#F59E0B",
       "error": "#EF4444",
-      "info": "#3B82F6"
+      "info": "#737373"
     }
   },
   "spacing": {
@@ -99,13 +100,11 @@
   },
   "shadows": {
     "xs": "0 1px 2px rgba(0, 0, 0, 0.05)",
-    "sm": "0 2px 4px rgba(0, 0, 0, 0.1)",
-    "md": "0 4px 6px rgba(0, 0, 0, 0.1)",
+    "sm": "0 2px 4px rgba(0, 0, 0, 0.06)",
+    "md": "0 4px 6px rgba(0, 0, 0, 0.08)",
     "lg": "0 10px 15px rgba(0, 0, 0, 0.1)",
-    "xl": "0 20px 25px rgba(0, 0, 0, 0.15)",
-    "2xl": "0 25px 50px rgba(0, 0, 0, 0.25)",
-    "ai": "0 0 12px rgba(102, 126, 234, 0.5)",
-    "ai-strong": "0 0 24px rgba(102, 126, 234, 0.8)"
+    "xl": "0 20px 25px rgba(0, 0, 0, 0.12)",
+    "2xl": "0 25px 50px rgba(0, 0, 0, 0.2)"
   },
   "breakpoints": {
     "xs": "0px",

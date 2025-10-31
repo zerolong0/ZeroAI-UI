@@ -134,7 +134,7 @@ export function createApp() {
 
 ```vue
 <template>
-  <!-- AI 消息气泡（Ant Design Orange 纯色） -->
+  <!-- AI 消息气泡（Taobao Orange 纯色） -->
   <view class="ai-bubble">
     <text>{{ message }}</text>
   </view>
@@ -222,7 +222,7 @@ defineProps<{
 {
   "tabBar": {
     "color": "#6B7280",
-    "selectedColor": "#2563EB",
+    "selectedColor": "#737373",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "black",
     "list": [
@@ -718,8 +718,8 @@ const goToProduct = (id: number) => {
 
 ```css
 /* 颜色 - 纯色系统（无渐变）*/
-var(--human-primary)         /* #2563EB 人类操作主色（蓝色）*/
-var(--ai-primary)            /* #FA8C16 AI 主色（Ant Design Orange）*/
+var(--human-primary)         /* #737373 人类操作主色（蓝色）*/
+var(--ai-primary)            /* #FF6600 AI 主色（Taobao Orange）*/
 var(--collaboration-primary) /* #FF7A45 协作主色（蓝橙混合）*/
 
 /* 间距 */
@@ -769,10 +769,10 @@ env(safe-area-inset-bottom)
 
 ```
 用户输入/操作 → human-* 系列（蓝色纯色）
-AI 生成内容 → ai-* 系列（橙色纯色 - Ant Design Orange）
+AI 生成内容 → ai-* 系列（橙色纯色 - Taobao Orange）
 人机协作 → collaboration-* 系列（蓝橙混合纯色）
 
-注意：v5.0.1+ 全部使用纯色，禁止渐变和 emoji
+注意：v5.1.0+ 全部使用纯色，禁止渐变和 emoji
 ```
 
 ### 3. Mobile-First 响应式
